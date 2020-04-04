@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Pokedex from '../Pokedex';
+import Paginator from '../Paginator';
 import Logo from '../logo.svg';
 
 import './PokemonList.css';
@@ -22,97 +23,75 @@ class PokemonCard extends React.Component {
     }
 }
 
-class Paginator extends React.Component {
+export default class PokemonList extends React.Component {
     constructor(props) {
         super(props);
 
+        const search = new URLSearchParams(props.location.search);
+
         this.state = {
-            itemsPerPage: 20,
-            offset: 0,
-            loadedItems: 20,
-            autoLoad: 200,
-            sort: null,
-            filter: null
+            pokemons: [],
+            sort: search.get("s"),
+            order: search.get("o"),
+            filter: search.get("q")
         };
-
-        this.containerRef = React.createRef();
-
-        this._handleScroll = this._handleScroll.bind(this);
     }
 
-    _handleScroll(event) {
-        if (this.state.loadedItems >= this.props.data.length) return;
+    componentDidMount() {
+        this.setState({
+            pokemons: Pokedex.list()
+        });
+    }
 
-        const doc = document.documentElement;
-        const scrollTop = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
-        const bottom = this.containerRef.current.offsetTop + this.containerRef.current.offsetHeight;
+    componentDidUpdate(prevProps) {
+        if (this.props.location.search !== prevProps.location.search) {
+            const search = new URLSearchParams(this.props.location.search);
 
-        if (this.state.autoLoad != null && bottom - scrollTop - doc.clientHeight < this.state.autoLoad) {
-            this.setState(state => {
-                return Object.assign({}, state, {
-                    loadedItems: Math.min(state.loadedItems + state.itemsPerPage, this.props.data.length)
-                });
+            this.setState({
+                sort: search.get("s"),
+                order: search.get("o"),
+                filter: search.get("q")
             });
         }
     }
 
-    componentDidMount() {
-        window.addEventListener("scroll", this._handleScroll);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener("scroll", this._handleScroll);
-    }
-
-    setSortAndFilter(sort, filter) {
-        this.setState(state => {
-            return Object.assign({}, state, {
-                offset: 0,
-                loadedItems: state.itemsPerPage,
-                sort: sort !== undefined ? sort : state.sort,
-                filter: filter !== undefined ? filter : state.filter
-            });
-        });
-    }
-
-    getRenderedData() {
-        var data = this.props.data;
-
-        if (this.state.filter)
-            data = data.filter(this.state.filter);
-
-        if (this.state.sort)
-            data = data.sort(this.state.sort);
-
-        data = data.slice(this.state.offset, this.state.offset + this.state.loadedItems);
-
-        return data;
-    }
-
-    render() {
-        return (
-            <div ref={this.containerRef} className={this.props.className} onScroll={this.onScroll}>
-                {this.getRenderedData().map(this.props.renderItem)}
-            </div>
-        );
-    }
-}
-
-export default class PokemonList extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            pokemons: []
+    getSortFunction() {
+        const sortFunctions = {
+            "name": (pokemon1, pokemon2) => pokemon1.name > pokemon2.name ? 1 : pokemon1.name < pokemon2.name ? -1 : 0,
+            "rarity": (pokemon1, pokemon2) => pokemon2.avg_spawns - pokemon1.avg_spawns,
+            "height": (pokemon1, pokemon2) => parseFloat(pokemon1.height) - parseFloat(pokemon2.height),
+            "weight": (pokemon1, pokemon2) => parseFloat(pokemon1.weight) - parseFloat(pokemon2.weight)
         };
+
+        var sortFunction = null;
+        if (this.state.sort != null && this.state.sort.toLowerCase() in sortFunctions)
+            sortFunction = sortFunctions[this.state.sort.toLowerCase()];
+
+        if (this.state.order != null && this.state.order.charAt(0).toLowerCase() === "d") {
+            if (sortFunction == null)
+                sortFunction = (pokemon1, pokemon2) => pokemon1.id - pokemon2.id;
+
+            return (pokemon1, pokemon2) => -sortFunction(pokemon1, pokemon2);
+        } else {
+            return sortFunction;
+        }
     }
 
-    componentDidMount() {
-        this.setState(state => {
-            return Object.assign({}, state, {
-                pokemons: Pokedex.list()
-            });
-        });
+    getFilterFunction() {
+        if (!this.state.filter) return null;
+
+        const keywords = this.state.filter.replace(/\W+/g, " ").replace(/(^ | $)/g, "").toLowerCase().split(" ");
+
+        return (pokemon) => {
+            for (var i = 0; i < keywords.length; i++) {
+                const keyword = keywords[i];
+
+                if (!pokemon.name.toLowerCase().includes(keyword) && !pokemon.type.join(" ").toLowerCase().includes(keyword))
+                    return false;
+            }
+
+            return true;
+        };
     }
 
     render() {
@@ -120,9 +99,12 @@ export default class PokemonList extends React.Component {
             <div>
                 <h1 className="page-title">
                     <img src={Logo} alt="Logo Pokédex" title="Logo Pokédex" className="page-title-logo" />
-                    <span className="page-title-text">Liste des {this.state.pokemons.length} Pokémons</span>
+                    <span className="page-title-text">
+                        {!!this.state.filter && `Recherche de Pokémon : “${this.state.filter}”`}
+                        {!this.state.filter && `Liste des ${this.state.pokemons.length} Pokémons`}
+                    </span>
                 </h1>
-                <Paginator className="pokemon-list" data={this.state.pokemons} renderItem={pokemon =>
+                <Paginator className="pokemon-list" data={this.state.pokemons} sortFunction={this.getSortFunction()} filterFunction={this.getFilterFunction()} renderItem={pokemon =>
                     <PokemonCard key={pokemon.id} pokemon={pokemon} />
                 } />
             </div>
