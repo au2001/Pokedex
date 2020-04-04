@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Pokedex from '../Pokedex';
 import NotFound from './NotFound';
 
@@ -20,6 +21,7 @@ export default class PokemonDetails extends React.Component {
 
         return (
             <div>
+                <Link to="/">Retour</Link>
                 <h1>Pokémon {this.state.pokemon.name}</h1>
             </div>
         );
