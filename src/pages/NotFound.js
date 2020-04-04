@@ -1,9 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Logo from '../logo.svg';
+
+import './NotFound.css';
 
 export default class NotFound extends React.Component {
     render() {
         return (
-            <h1>404 Page Not Found</h1>
+            <div>
+                <h1 className="page-title">
+                    <img src={Logo} alt="Logo Pokédex" title="Logo Pokédex" className="page-title-logo" />
+                    <span className="page-title-text">Erreur 404 &ndash; Page introuvable</span>
+                </h1>
+
+                <p className="error-description">
+                    La page que vous cherchez n'existe pas.
+                </p>
+
+                <Link to="/" className="home">Cliquez ici pour retourner à l'accueil.</Link>
+            </div>
         );
     }
 }

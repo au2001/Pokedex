@@ -2,11 +2,12 @@
 	display: grid;
 
 	width: 75%;
-	max-width: 1200px;
+	max-width: 75em;
 	margin: 0 auto;
+	margin-bottom: 2em;
 
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-	grid-gap: 20px 50px;
+	grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+	grid-gap: 2em 5em;
 }
 
 .pokemon-card {

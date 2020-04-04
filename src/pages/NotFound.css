@@ -1,0 +1,19 @@
+.error-description, .home {
+	width: 75%;
+	max-width: 1200px;
+	margin: 1em auto;
+}
+
+.home {
+	display: block;
+
+	color: #333;
+}
+
+@media (max-width: 400px) {
+
+	.error-description, .home {
+		width: 90%;
+	}
+
+}
