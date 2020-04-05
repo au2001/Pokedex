@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Pokedex from '../Pokedex';
 import Paginator from '../components/Paginator';
+import SearchBar from '../components/SearchBar';
 import Logo from '../logo.svg';
 
 import './PokemonList.css';
@@ -27,32 +28,28 @@ export default class PokemonList extends React.Component {
     constructor(props) {
         super(props);
 
-        const search = new URLSearchParams(props.location.search);
-
         this.state = {
             pokemons: [],
-            sort: search.get("s"),
-            order: search.get("o"),
-            filter: search.get("q")
+            sort: null,
+            order: null,
+            filter: null
         };
+
+        this._updateSearch = this._updateSearch.bind(this);
+    }
+
+    _updateSearch(sort, order, filter) {
+        this.setState({
+            sort,
+            order,
+            filter
+        });
     }
 
     componentDidMount() {
         this.setState({
             pokemons: Pokedex.list()
         });
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.location.search !== prevProps.location.search) {
-            const search = new URLSearchParams(this.props.location.search);
-
-            this.setState({
-                sort: search.get("s"),
-                order: search.get("o"),
-                filter: search.get("q")
-            });
-        }
     }
 
     getSortFunction() {
@@ -104,6 +101,7 @@ export default class PokemonList extends React.Component {
                         {!this.state.filter && `Liste des ${this.state.pokemons.length} Pokémons`}
                     </span>
                 </h1>
+                <SearchBar history={this.props.history} defaultSort={this.state.sort} defaultOrder={this.state.order} defaultFilter={this.state.filter} onChange={this._updateSearch} />
                 <Paginator className="pokemon-list" data={this.state.pokemons} sortFunction={this.getSortFunction()} filterFunction={this.getFilterFunction()} renderItem={pokemon =>
                     <PokemonCard key={pokemon.id} pokemon={pokemon} />
                 } />
