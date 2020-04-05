@@ -56,7 +56,7 @@ export default class Paginator extends React.Component {
     }
 
     getRenderedData() {
-        var data = this.props.data;
+        var data = this.props.data.slice(0);
 
         if (this.state.filter)
             data = data.filter(this.state.filter);

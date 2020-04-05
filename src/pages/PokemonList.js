@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Pokedex from '../Pokedex';
-import Paginator from '../Paginator';
+import Paginator from '../components/Paginator';
 import Logo from '../logo.svg';
 
 import './PokemonList.css';
