@@ -10,10 +10,38 @@
     grid-gap: 2em 5em;
 }
 
+.pokemon-list-card {
+    border: 1px solid transparent;
+    border-radius: 1em;
+    transition: border-color .3s ease-in-out;
+}
+
+.pokemon-list-card:hover {
+    border-color: #AAA;
+
+    cursor: pointer;
+}
+
 @media (max-width: 400px) {
 
     .pokemon-list {
         width: 90%;
+    }
+
+}
+
+@media (hover: none) {
+
+    .pokemon-list-card {
+        border: unset;
+        border-radius: unset;
+        transition: unset;
+    }
+
+    .pokemon-list-card:hover {
+        border-color: unset;
+
+        cursor: unset;
     }
 
 }

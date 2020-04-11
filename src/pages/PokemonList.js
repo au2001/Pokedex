@@ -85,7 +85,7 @@ export default class PokemonList extends React.Component {
                 </h1>
                 <SearchBar history={this.props.history} defaultSort={this.state.sort} defaultOrder={this.state.order} defaultFilter={this.state.filter} onChange={this._updateSearch} />
                 <Paginator className="pokemon-list" data={this.state.pokemons} sortFunction={this.getSortFunction()} filterFunction={this.getFilterFunction()} renderItem={pokemon =>
-                    <PokemonCard key={pokemon.id} pokemon={pokemon} />
+                    <PokemonCard key={pokemon.id} pokemon={pokemon} className="pokemon-list-card" />
                 } />
             </div>
         );

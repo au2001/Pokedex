@@ -6,16 +6,6 @@
     color: black;
     text-decoration: none;
     text-align: center;
-
-    border: 1px solid transparent;
-    border-radius: 1em;
-    transition: border-color .3s ease-in-out;
-}
-
-.pokemon-card:hover {
-    border-color: #AAA;
-
-    cursor: pointer;
 }
 
 .pokemon-card-image {
@@ -54,20 +44,4 @@
     margin: 0 auto;
 
     justify-content: space-around;
-}
-
-@media (hover: none) {
-
-    .pokemon-card {
-        border: unset;
-        border-radius: unset;
-        transition: unset;
-    }
-
-    .pokemon-card:hover {
-        border-color: unset;
-
-        cursor: unset;
-    }
-
 }
