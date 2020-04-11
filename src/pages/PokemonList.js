@@ -10,7 +10,7 @@ class PokemonCard extends React.Component {
     render() {
         return (
             <Link to={`/pokemon/${Pokedex.slug(this.props.pokemon)}`} className="pokemon-card">
-                <img src={this.props.pokemon.img} alt={this.props.pokemon.name} title={this.props.pokemon.name} className="pokemon-image" />
+                <img src={this.props.pokemon.img} alt={this.props.pokemon.name} className="pokemon-image" />
                 <span className="pokemon-number">#{this.props.pokemon.num}</span>
                 <span className="pokemon-name">{this.props.pokemon.name}</span>
                 <span className="pokemon-types">
@@ -94,7 +94,7 @@ export default class PokemonList extends React.Component {
         return (
             <div>
                 <h1 className="page-title">
-                    <img src="/logo.png" alt="Logo Pokédex" title="Logo Pokédex" className="page-title-logo" />
+                    <img src="/logo.png" alt="Logo Pokédex" className="page-title-logo" />
                     <span className="page-title-text">
                         {!!this.state.filter && `Recherche de Pokémon : “${this.state.filter}”`}
                         {!this.state.filter && `Liste des ${this.state.pokemons.length} Pokémons`}

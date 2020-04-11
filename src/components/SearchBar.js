@@ -77,7 +77,7 @@ export default class SearchBar extends React.Component {
                 <div className="filter-container">
                     <input type="text" name="filter" placeholder="Rechercher un Pokémon..." value={this.state.filter} onChange={this._changeField} className="filter" />
                     <label htmlFor="search-reset" className="reset-label">
-                        <img src="/clear.png" alt="Clear" />
+                        <img src="/clear.png" alt="Réinitialiser" />
                     </label>
                     <input type="reset" id="search-reset" hidden />
                 </div>
@@ -90,10 +90,10 @@ export default class SearchBar extends React.Component {
                 </select>
                 <label htmlFor="search-order" className="order-label">
                     {(this.state.order == null || this.state.order.charAt(0).toLowerCase() !== "d") &&
-                        <img src="/order-ascending.png" alt="Ascending order" />
+                        <img src="/order-ascending.png" alt="Ordre ascendant" />
                     }
                     {(this.state.order != null && this.state.order.charAt(0).toLowerCase() === "d") &&
-                        <img src="/order-descending.png" alt="Descending order" />
+                        <img src="/order-descending.png" alt="Order descendant" />
                     }
                 </label>
                 <input type="checkbox" name="order" id="search-order" checked={this.state.order == null || this.state.order.charAt(0).toLowerCase() !== "d"} onChange={this._changeField} className="order" />
