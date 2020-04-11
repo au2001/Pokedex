@@ -23,8 +23,10 @@ export default class PokemonDetails extends React.Component {
 
         return (
             <div>
-                <Link to="/" className="back">Retour</Link>
                 <h1 className="page-title">
+                    <Link to="/" className="back">
+                        <img src="/back.png" alt="Back" />
+                    </Link>
                     <img src="/logo.png" alt="Logo Pokédex" title="Logo Pokédex" className="page-title-logo" />
                     <span className="page-title-text">{this.state.pokemon.name}</span>
                 </h1>
