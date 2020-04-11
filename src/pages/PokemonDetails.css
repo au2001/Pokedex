@@ -4,6 +4,66 @@
 
 .back img {
     height: .8em;
+
     vertical-align: middle;
+}
+
+.pokemon-details-label {
+    display: inline-block;
+    width: 12em;
+    margin-bottom: .5em;
+
+    font-weight: bold;
+}
+
+.pokemon-details-value .pokemon-type {
+    margin-right: 1em;
+}
+
+.pokemon-details, .pokemon-details-evolutions {
+    display: grid;
+    grid-template-columns: 25% auto;
+
+    width: 75%;
+    max-width: 1200px;
+    margin: 2em auto;
+}
+
+.pokemon-details-photo-container {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.pokemon-details-evolutions {
+    grid-template-columns: 18.75% 18.75% 18.75% 18.75%;
+    grid-gap: 2em 5em;
+
+    align-items: center;
+}
+
+.pokemon-details-evolutions-card {
+    cursor: pointer;
+}
+
+.pokemon-details-evolutions-current {
+    border: 1px solid #AAA;
+    border-radius: 1em;
+}
+
+@media (max-width: 400px) {
+
+    .pokemon-details, .pokemon-details-evolutions {
+        width: 90%;
+        grid-template-columns: 22.5% 22.5% 22.5% 22.5%;
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    .pokemon-details {
+        grid-template-columns: auto;
+    }
 
 }
