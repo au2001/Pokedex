@@ -116,6 +116,8 @@ export default class PokemonDetails extends React.Component {
                     </div>
                 </div>
 
+                <h1 className="pokemon-details-evolutions-title">Évolutions</h1>
+
                 <div className="pokemon-details-evolutions">
                     {this.state.prev_evolution !== undefined && this.state.prev_evolution.map(evolution =>
                         <PokemonCard key={evolution.id} pokemon={evolution} className="pokemon-details-evolutions-card pokemon-details-evolutions-prev" />

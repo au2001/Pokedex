@@ -35,6 +35,14 @@
     justify-content: center;
 }
 
+.pokemon-details-evolutions-title {
+    width: 75%;
+    max-width: 1200px;
+    margin: 2em auto 0 auto;
+
+    font-size: 200%;
+}
+
 .pokemon-details-evolutions {
     grid-template-columns: 18.75% 18.75% 18.75% 18.75%;
     grid-gap: 2em 5em;
@@ -53,8 +61,11 @@
 
 @media (max-width: 400px) {
 
-    .pokemon-details, .pokemon-details-evolutions {
+    .pokemon-details, .pokemon-details-evolutions-title, .pokemon-details-evolutions {
         width: 90%;
+    }
+
+    .pokemon-details-evolutions {
         grid-template-columns: 22.5% 22.5% 22.5% 22.5%;
     }
 
@@ -64,6 +75,14 @@
 
     .pokemon-details {
         grid-template-columns: auto;
+    }
+
+}
+
+@media (max-width: 1600px) {
+
+    .pokemon-details-evolutions-title {
+        font-size: 150%;
     }
 
 }
