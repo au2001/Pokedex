@@ -1,9 +1,9 @@
 .back {
-	margin-right: .4em;
+    margin-right: .4em;
 }
 
 .back img {
-	height: .8em;
+    height: .8em;
+    vertical-align: middle;
 
-	vertical-align: middle;
 }
