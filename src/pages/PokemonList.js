@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Pokedex from '../Pokedex';
 import Paginator from '../components/Paginator';
 import SearchBar from '../components/SearchBar';
-import Logo from '../logo.svg';
 
 import './PokemonList.css';
 
@@ -95,7 +94,7 @@ export default class PokemonList extends React.Component {
         return (
             <div>
                 <h1 className="page-title">
-                    <img src={Logo} alt="Logo Pokédex" title="Logo Pokédex" className="page-title-logo" />
+                    <img src="/logo.png" alt="Logo Pokédex" title="Logo Pokédex" className="page-title-logo" />
                     <span className="page-title-text">
                         {!!this.state.filter && `Recherche de Pokémon : “${this.state.filter}”`}
                         {!this.state.filter && `Liste des ${this.state.pokemons.length} Pokémons`}
