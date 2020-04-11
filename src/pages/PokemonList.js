@@ -1,27 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Pokedex from '../Pokedex';
 import Paginator from '../components/Paginator';
 import SearchBar from '../components/SearchBar';
+import PokemonCard from '../components/PokemonCard';
 
 import './PokemonList.css';
-
-class PokemonCard extends React.Component {
-    render() {
-        return (
-            <Link to={`/pokemon/${Pokedex.slug(this.props.pokemon)}`} className="pokemon-list-card">
-                <img src={this.props.pokemon.img} alt={this.props.pokemon.name} className="pokemon-list-image" />
-                <span className="pokemon-list-number">#{this.props.pokemon.num}</span>
-                <span className="pokemon-list-name">{this.props.pokemon.name}</span>
-                <span className="pokemon-list-types">
-                    {this.props.pokemon.type.map(type =>
-                        <span key={type.toLowerCase()} className={`pokemon-type type-${type.toLowerCase()}`}>{type}</span>
-                    )}
-                </span>
-            </Link>
-        );
-    }
-}
 
 export default class PokemonList extends React.Component {
     constructor(props) {
