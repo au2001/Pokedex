@@ -4,28 +4,30 @@ import pokemons from './pokemons.json';
 
 class App extends Component {
 
-	constructor (props){
-		super(props);
+    constructor (props){
+        super(props);
 
-		this.state = { pokemon: false };
+        this.state = { pokemon: false };
 
-		this.start = this.start.bind(this);
-	}
+        // pouvoir utiliser le mot-clef ​this​ dans les méthodes ​start​ et ​stop​ en callback
+        this.start = this.start.bind(this);
+    }
 
-	render (){
+    render (){
 
 
-		if (this.state.pokemon == false)
-		{
+        // Afficher conditionnellement un élément
+        if (this.state.pokemon == false)
+        {
+        	
+            return this.displayPokemons();
+        } else
 
-			return this.displayPokemons();
-		} else
+        {
+            return this.displayPokemon()
+        }
 
-		{
-			return this.displayPokemon();
-		}
-
-	}
+    }
 
 	displayPokemons() {
 		let listPokemon = pokemons.pokemon.map((clock, index) =>
@@ -48,15 +50,17 @@ class App extends Component {
 
 	start(index) {
 		this.state.pokemon = index
-
+		
+		// raffraichit la page
 		this.setState(this.state)
 	}
 
 	displayPokemon() {
+		// pokemon à l'index pokemon de l'état du composant
 		var pokemon = pokemons.pokemon[this.state.pokemon];
 
 		return (
-
+			
 			<div>
 
 				<h1>{pokemon.name}</h1>
@@ -72,6 +76,7 @@ class App extends Component {
 
 	fermer ()
 	{
+		// enlève le pokémon stoqué de l'état du composant
 		delete this.state.pokemon;
 	}
 
